@@ -1,0 +1,115 @@
+/* ============================================================
+   Matthew C. Nisbet — personal site
+   Redesign June 2026.
+   - one accent: green #00693E (dot, bar, active-tab underline only)
+   - black text on white; links black + underlined, never green
+   - Source Serif 4 for titles and citations; system sans for nav/labels
+   - no italics anywhere; circular headshot; no divider lines on CV/pubs
+   ============================================================ */
+
+:root{
+  --green:#00693E;
+  --ink:#000000;
+  --muted:#555555;
+  --rule:rgba(0,0,0,0.12);
+  --maxw:1000px;
+  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans:-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:#fff;color:var(--ink);}
+body{font-family:var(--sans);font-size:13px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
+
+/* links: black, underlined, never green; italics never */
+a{color:var(--ink);text-decoration:underline;text-underline-offset:1.5px;}
+a:hover{text-decoration-thickness:1.5px;}
+em,i{font-style:normal;}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:0.5px solid var(--rule);}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;
+  padding-top:13px;padding-bottom:13px;}
+.brand{display:inline-flex;flex-direction:column;align-items:flex-start;text-decoration:none;}
+.brand .bar{width:42px;height:2.5px;background:var(--green);margin-bottom:5px;}
+.brand .name{font-family:var(--serif);font-weight:700;font-size:17px;letter-spacing:0.2px;color:var(--ink);}
+nav.main{font-size:12.5px;display:flex;gap:18px;flex-wrap:wrap;}
+nav.main a{text-decoration:none;padding-bottom:2px;color:var(--ink);}
+nav.main a.active{border-bottom:2px solid var(--green);}
+nav.main a:hover{text-decoration:underline;}
+
+/* ---------- headshot avatar (circular) ---------- */
+.avatar{width:92px;height:92px;border-radius:50%;object-fit:cover;display:block;background:#fff;}
+
+/* ---------- landing hero ---------- */
+.hero{display:flex;gap:20px;align-items:flex-start;padding:30px 0 26px;}
+.hero .avatar{flex:0 0 92px;margin-top:2px;}
+.hero .herotext{flex:1;max-width:640px;}
+.hero .title{font-weight:600;font-size:15px;line-height:1.35;}
+.hero .subtitle{font-weight:400;font-size:13px;color:var(--muted);margin-bottom:16px;}
+.hero p{margin:0 0 11px;font-size:13px;line-height:1.6;}
+.hero p:last-child{margin-bottom:0;}
+
+/* ---------- about / bio ---------- */
+.bio{display:flex;gap:20px;align-items:flex-start;padding:30px 0 20px;}
+.bio .avatar{flex:0 0 96px;width:96px;height:96px;margin-top:4px;}
+.bio .biotext{flex:1;max-width:660px;font-size:14px;line-height:1.6;}
+.bio .biotext p{margin:0 0 13px;}
+
+/* ---------- two-column pages (CV, Publications) ---------- */
+.cols{display:flex;gap:30px;align-items:flex-start;padding-top:26px;}
+.side{flex:0 0 150px;position:sticky;top:18px;}
+.side .avatar{width:96px;height:96px;margin-bottom:14px;}
+.sidenav{display:flex;flex-direction:column;gap:6px;}
+.sidenav a{font-size:12px;line-height:1.25;color:var(--muted);text-decoration:none;}
+.sidenav a:hover{color:var(--green);text-decoration:underline;}
+.sidenav .glabel{font-size:11px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;
+  color:var(--muted);margin:12px 0 2px;}
+.sidenav .gap{height:12px;}
+.maincol{flex:1;min-width:0;}
+
+/* ---------- page titles ---------- */
+.cvtitle{font-family:var(--sans);font-size:16px;font-weight:700;margin:0;letter-spacing:-0.01em;}
+.cvmeta{font-size:13px;color:var(--muted);margin:0 0 16px;}
+.cvmeta a{color:var(--muted);text-decoration:underline;margin-right:14px;}
+h1.page{font-family:var(--sans);font-size:20px;font-weight:700;margin:28px 0 16px;letter-spacing:-0.01em;}
+
+/* ---------- section headings: sans, no divider lines ---------- */
+h2.section{font-family:var(--sans);font-size:14px;font-weight:700;margin:18px 0 8px;
+  scroll-margin-top:70px;}
+h3.subsection{font-family:var(--sans);font-size:12.5px;font-weight:700;color:#222;margin:12px 0 6px;}
+.ct{font-weight:400;color:var(--muted);}
+
+/* ---------- citation entries ---------- */
+.entry{margin-bottom:10px;}
+.cite{font-family:var(--serif);font-size:13px;line-height:1.5;
+  padding-left:24px;text-indent:-24px;}
+.listcol{padding-top:4px;}
+.listcol .entry{margin-bottom:10px;}
+
+/* ---------- footer (parallels top nav) ---------- */
+footer{border-top:0.5px solid var(--rule);margin-top:48px;}
+footer .wrap{display:flex;gap:16px;align-items:center;padding:16px 32px;
+  font-size:11.5px;color:var(--muted);flex-wrap:wrap;}
+footer .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:0 0 8px;}
+nav.foot{display:flex;gap:16px;flex-wrap:wrap;}
+nav.foot a{color:var(--muted);text-decoration:none;}
+nav.foot a:hover{text-decoration:underline;}
+footer .copy{margin-left:auto;}
+
+/* ---------- responsive ---------- */
+@media (max-width:720px){
+  .cols{flex-direction:column;gap:18px;}
+  .side{position:static;flex:none;display:flex;gap:18px;align-items:flex-start;}
+  .side .avatar{margin-bottom:0;}
+  .sidenav{flex:1;}
+}
+@media (max-width:600px){
+  .hero{flex-direction:column;gap:14px;}
+  .bio{flex-direction:column;gap:14px;}
+  nav.main{gap:12px;font-size:11.5px;}
+  .masthead .wrap{flex-wrap:wrap;gap:8px;}
+  footer .copy{margin-left:0;width:100%;}
+}
