@@ -23,14 +23,13 @@ FAVICON = ("data:image/svg+xml,"
   "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E"
   "%3Ccircle cx='16' cy='16' r='9' fill='%2300693E'/%3E%3C/svg%3E")
 
-# Top navigation, fixed order. The footer parallels this exactly.
+# Top navigation, fixed order. Courses removed from the bar (still reachable from the C.V.).
 NAV = [
     ("About",        "about.html"),
     ("C.V.",         "cv.html"),
     ("Publications", "publications.html"),
     ("Talks",        "talks.html"),
     ("Media",        "media.html"),
-    ("Courses",      "courses.html"),
     ("Substack",     "https://mattnisbet.substack.com"),
 ]
 
@@ -51,8 +50,6 @@ def head(title, active):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)}</title>
 <link rel="icon" href="{FAVICON}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -101,6 +98,29 @@ def cv_date(entry):
     entry = re.sub(r'^(\d{4}(?:[\u2013-]\d{2,4})?)\.(\s)', r'\1\2', entry)
     return entry
 
+def amp_authors(entry):
+    """Replace ' and ' with ' & ' in the author portion only (before the first year)."""
+    m = re.search(r'\(\d{4}', entry)
+    if not m:
+        return entry.replace(' and ', ' & ')
+    return entry[:m.start()].replace(' and ', ' & ') + entry[m.start():]
+
+def year_bullets(entries, transform=None):
+    """Group entries under bold year subheaders, each year's entries as square bullets."""
+    out, cur, group = [], None, []
+    for e in entries:
+        m = re.search(r'\((\d{4})', e)
+        yr = m.group(1) if m else None
+        if yr and yr != cur:
+            if group:
+                out.append(bullets(group, transform)); group = []
+            out.append(f'<div class="yearhead">{yr}</div>')
+            cur = yr
+        group.append(e)
+    if group:
+        out.append(bullets(group, transform))
+    return "".join(out)
+
 def bullets(entries, transform=None):
     out = ['<ul class="bullets">']
     for e in entries:
@@ -110,17 +130,23 @@ def bullets(entries, transform=None):
     return "".join(out)
 
 def render_impact(entries):
-    """Impact/recognition: no bullets; **labels** become bold, brackets stay non-bold."""
-    out = []
+    """Impact/recognition: **labels** become bold subheaders; items under them are square bullets."""
+    out, group = [], []
+    def flush():
+        if group:
+            out.append(bullets(group, amp_authors))
+            group.clear()
     for e in entries:
         s = e.strip()
         if s.startswith('**') and s.endswith('**'):
+            flush()
             esc = html.escape(s[2:-2])
             esc = re.sub(r'\[([^\]]*)\]', r'</strong><span class="ct">[\1]</span><strong>', esc)
             label = ('<strong>' + esc + '</strong>').replace('<strong></strong>', '')
             out.append(f'<div class="impact-label">{label}</div>')
         else:
-            out.append(f'<div class="impact-line">{md_inline(e)}</div>')
+            group.append(e)
+    flush()
     return "".join(out)
 
 def read_record(path):
@@ -303,8 +329,12 @@ def build_publications():
         count, entries = lookup[key]
         cnt = f' <span class="ct">[{count}]</span>' if count else ""
         out += f'<h2 class="section" id="{anchor}">{html.escape(label)}{cnt}</h2>'
-        for e in entries:
-            out += entry_html(e)
+        # Square bullets everywhere; year subheaders on every section except Edited volumes.
+        # Author lists use '&' in place of 'and'.
+        if key == "Edited volumes":
+            out += bullets(entries, amp_authors)
+        else:
+            out += year_bullets(entries, amp_authors)
     out += '</div></div>'
     return out + footer()
 
@@ -315,15 +345,9 @@ def build_list_page(record_file, page_title, active, heading):
     h = head(f"{page_title} — Matthew C. Nisbet", active)
     cnt = f' <span class="ct">[{count}]</span>' if count else ""
     h += f'<h1 class="page">{html.escape(heading)}{cnt}</h1>'
+    # Full width (no sidebar): too many years to list. Year subheaders + square bullets.
     h += '<div class="listcol">'
-    cur_year = None
-    for e in entries:
-        m = re.search(r'\((\d{4})', e)
-        yr = m.group(1) if m else None
-        if yr and yr != cur_year:
-            h += f'<div class="yearhead">{yr}</div>'
-            cur_year = yr
-        h += entry_html(e)
+    h += year_bullets(entries, amp_authors)
     h += '</div>'
     return h + footer()
 

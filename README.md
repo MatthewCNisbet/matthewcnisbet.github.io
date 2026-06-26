@@ -1,25 +1,20 @@
-# matthewcnisbet.github.io — flat build (June 2026)
+# matthewcnisbet.github.io — upload set (June 2026)
 
-All files live at the repository root. No assets/ folder.
-The seven HTML files plus style.css and headshot.png are the live site.
+Flat site: every file sits at the repository root. No assets/ folder.
 
-## Files to upload (all at root)
+## Upload all of these to the repo root
 index.html, about.html, cv.html, publications.html, talks.html, media.html,
-courses.html, style.css, headshot.png
+courses.html, style.css, headshot.png, generate.py
 
-Add Nisbet_CV.pdf at the root too; the C.V. page links to "Nisbet_CV.pdf".
+## Add yourself
+Nisbet_CV.pdf at the root (the C.V. page links to it).
 
-## Delete from the repo (old, unused)
-alldata.json, bio.html  (replaced by about.html; not referenced anywhere)
-Also any old talks.json, media.json, parse_cv.py if present.
+## Delete from the repo (obsolete, unused)
+alldata.json, bio.html, talks.json, media.json, parse_cv.py
 
-## Rebuild after editing a record file
-Keep these next to generate.py and run `python3 generate.py`:
-nisbet_cv_publications.md, nisbet_cv_essays_columns_v2.md,
-nisbet_cv_media_coverage.md, nisbet_cv_talks.md, nisbet_cv_appointments_record.md
+## After uploading
+Hard-refresh (Cmd-Shift-R / Ctrl-Shift-R) so the browser loads the new style.css.
 
-## Notes
-- Top navigation only; no footer navigation.
-- Talks and Media group entries under bold year subheaders.
-- Citations are flush left; list spacing is dense; bracketed counts are not bold.
-- If the site still looks unstyled after upload, hard-refresh (Cmd-Shift-R / Ctrl-Shift-R).
+## Rebuild later (optional)
+generate.py reads the five record markdown files directly. To regenerate the HTML,
+keep those records next to generate.py and run: python3 generate.py

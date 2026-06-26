@@ -36,7 +36,7 @@ em,i{font-style:normal;}
   padding-top:13px;padding-bottom:13px;}
 .brand{display:inline-flex;flex-direction:column;align-items:flex-start;text-decoration:none;}
 .brand .bar{width:42px;height:2.5px;background:var(--green);margin-bottom:5px;}
-.brand .name{font-family:var(--serif);font-weight:700;font-size:17px;letter-spacing:0.2px;color:var(--ink);}
+.brand .name{font-family:var(--sans);font-weight:700;font-size:17px;letter-spacing:-0.01em;color:var(--ink);}
 nav.main{font-size:12.5px;display:flex;gap:18px;flex-wrap:wrap;}
 nav.main a{text-decoration:none;padding-bottom:2px;color:var(--ink);}
 nav.main a.active{border-bottom:2px solid var(--green);}
@@ -86,12 +86,12 @@ h3.subsection{font-family:var(--sans);font-size:12.5px;font-weight:700;color:#00
 .ct{font-weight:400;color:#000000;}
 
 /* ---------- year subheaders (Talks, Media): serif, body size, bold ---------- */
-.yearhead{font-family:var(--serif);font-size:13px;font-weight:700;margin:14px 0 5px;}
+.yearhead{font-family:var(--sans);font-size:13px;font-weight:700;margin:14px 0 5px;}
 .yearhead:first-of-type{margin-top:4px;}
 
 /* ---------- citation entries: flush left, dense ---------- */
 .entry{margin-bottom:5px;}
-.cite{font-family:var(--serif);font-size:13px;line-height:1.4;color:#000000;}
+.cite{font-family:var(--sans);font-size:13px;line-height:1.45;color:#000000;}
 .listcol{padding-top:2px;}
 
 /* ---------- footer: copyright only, no navigation ---------- */
@@ -103,14 +103,14 @@ footer .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:
 /* ---------- CV square bullets ---------- */
 .bullets{list-style:none;margin:0;padding:0;}
 .bullets li{position:relative;padding-left:13px;margin-bottom:3px;
-  font-family:var(--serif);font-size:13px;line-height:1.4;color:#000000;}
+  font-family:var(--sans);font-size:13px;line-height:1.45;color:#000000;}
 .bullets li::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;background:#000000;}
 
 /* ---------- impact/recognition (no bullets) ---------- */
-.impact-label{font-family:var(--serif);font-weight:700;font-size:13px;line-height:1.4;
+.impact-label{font-family:var(--sans);font-weight:700;font-size:13px;line-height:1.45;
   color:#000000;margin:12px 0 2px;}
 .impact-label:first-child{margin-top:0;}
-.impact-line{font-family:var(--serif);font-size:13px;line-height:1.4;color:#000000;margin:0 0 2px;}
+.impact-line{font-family:var(--sans);font-size:13px;line-height:1.45;color:#000000;margin:0 0 2px;}
 
 /* ---------- responsive ---------- */
 @media (max-width:720px){
