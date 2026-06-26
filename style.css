@@ -21,7 +21,7 @@
 
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;background:#fff;color:var(--ink);}
-body{font-family:var(--sans);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+body{font-family:var(--sans);font-size:13px;line-height:1.5;}
 
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
 
@@ -65,25 +65,25 @@ nav.main a:hover{text-decoration:underline;}
 .side{flex:0 0 150px;position:sticky;top:18px;}
 .side .avatar{width:96px;height:96px;margin-bottom:14px;}
 .sidenav{display:flex;flex-direction:column;gap:5px;}
-.sidenav a{font-size:12px;line-height:1.25;color:var(--muted);text-decoration:none;}
+.sidenav a{font-size:12px;line-height:1.25;color:#000000;text-decoration:none;}
 .sidenav a:hover{color:var(--green);text-decoration:underline;}
 .sidenav .glabel{font-size:11px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;
-  color:var(--muted);margin:11px 0 2px;}
+  color:#000000;margin:11px 0 2px;}
 .sidenav .gap{height:11px;}
 .maincol{flex:1;min-width:0;}
 
 /* ---------- page titles ---------- */
 .cvtitle{font-family:var(--sans);font-size:16px;font-weight:700;margin:0;letter-spacing:-0.01em;}
-.cvmeta{font-size:13px;color:var(--muted);margin:0 0 14px;}
-.cvmeta a{color:var(--muted);text-decoration:underline;margin-right:14px;}
+.cvmeta{font-size:13px;color:#000000;margin:0 0 14px;}
+.cvmeta a{color:#000000;text-decoration:underline;margin-right:14px;}
 h1.page{font-family:var(--sans);font-size:20px;font-weight:700;margin:26px 0 12px;letter-spacing:-0.01em;}
 
 /* ---------- section headings: sans, no divider lines ---------- */
 h2.section{font-family:var(--sans);font-size:14px;font-weight:700;margin:16px 0 6px;
   scroll-margin-top:70px;}
-h3.subsection{font-family:var(--sans);font-size:12.5px;font-weight:700;color:#222;margin:10px 0 4px;}
+h3.subsection{font-family:var(--sans);font-size:12.5px;font-weight:700;color:#000000;margin:10px 0 4px;}
 /* bracketed counts: never bold */
-.ct{font-weight:400;color:var(--muted);}
+.ct{font-weight:400;color:#000000;}
 
 /* ---------- year subheaders (Talks, Media): serif, body size, bold ---------- */
 .yearhead{font-family:var(--serif);font-size:13px;font-weight:700;margin:14px 0 5px;}
@@ -91,7 +91,7 @@ h3.subsection{font-family:var(--sans);font-size:12.5px;font-weight:700;color:#22
 
 /* ---------- citation entries: flush left, dense ---------- */
 .entry{margin-bottom:5px;}
-.cite{font-family:var(--serif);font-size:13px;line-height:1.4;}
+.cite{font-family:var(--serif);font-size:13px;line-height:1.4;color:#000000;}
 .listcol{padding-top:2px;}
 
 /* ---------- footer: copyright only, no navigation ---------- */
@@ -99,6 +99,18 @@ footer{border-top:0.5px solid var(--rule);margin-top:40px;}
 footer .wrap{display:flex;gap:12px;align-items:center;padding:14px 32px;
   font-size:11.5px;color:var(--muted);}
 footer .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:0 0 8px;}
+
+/* ---------- CV square bullets ---------- */
+.bullets{list-style:none;margin:0;padding:0;}
+.bullets li{position:relative;padding-left:13px;margin-bottom:3px;
+  font-family:var(--serif);font-size:13px;line-height:1.4;color:#000000;}
+.bullets li::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;background:#000000;}
+
+/* ---------- impact/recognition (no bullets) ---------- */
+.impact-label{font-family:var(--serif);font-weight:700;font-size:13px;line-height:1.4;
+  color:#000000;margin:12px 0 2px;}
+.impact-label:first-child{margin-top:0;}
+.impact-line{font-family:var(--serif);font-size:13px;line-height:1.4;color:#000000;margin:0 0 2px;}
 
 /* ---------- responsive ---------- */
 @media (max-width:720px){

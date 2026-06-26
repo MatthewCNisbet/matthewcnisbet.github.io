@@ -81,6 +81,48 @@ def md_links_to_html(text):
     out.append(html.escape(text[pos:]))
     return "".join(out)
 
+def md_inline(text):
+    """Convert [label](url) and **bold** to HTML, escaping everything else."""
+    out, pos = [], 0
+    pat = re.compile(r'\[([^\]]+)\]\((https?://[^)]+)\)|\*\*([^*]+)\*\*')
+    for m in pat.finditer(text):
+        out.append(html.escape(text[pos:m.start()]))
+        if m.group(1) is not None:
+            out.append(f'<a href="{html.escape(m.group(2))}">{html.escape(m.group(1))}</a>')
+        else:
+            out.append(f'<strong>{html.escape(m.group(3))}</strong>')
+        pos = m.end()
+    out.append(html.escape(text[pos:]))
+    return "".join(out)
+
+def cv_date(entry):
+    """CV date convention: 'present' -> 'pres.'; no period after a leading year/range."""
+    entry = re.sub(r'present\.?', 'pres.', entry)
+    entry = re.sub(r'^(\d{4}(?:[\u2013-]\d{2,4})?)\.(\s)', r'\1\2', entry)
+    return entry
+
+def bullets(entries, transform=None):
+    out = ['<ul class="bullets">']
+    for e in entries:
+        t = transform(e) if transform else e
+        out.append(f'<li>{md_inline(t)}</li>')
+    out.append('</ul>')
+    return "".join(out)
+
+def render_impact(entries):
+    """Impact/recognition: no bullets; **labels** become bold, brackets stay non-bold."""
+    out = []
+    for e in entries:
+        s = e.strip()
+        if s.startswith('**') and s.endswith('**'):
+            esc = html.escape(s[2:-2])
+            esc = re.sub(r'\[([^\]]*)\]', r'</strong><span class="ct">[\1]</span><strong>', esc)
+            label = ('<strong>' + esc + '</strong>').replace('<strong></strong>', '')
+            out.append(f'<div class="impact-label">{label}</div>')
+        else:
+            out.append(f'<div class="impact-line">{md_inline(e)}</div>')
+    return "".join(out)
+
 def read_record(path):
     lines = open(path, encoding="utf-8").read().split("\n")
     sections, ch, cc, ce = [], None, None, []
@@ -176,15 +218,15 @@ def build_cv():
     appt = read_record("nisbet_cv_appointments_record.md")
     by = {h: (c, e) for h, c, e in appt}
 
+    def heading(anchor, label, key, show_count=True):
+        count = by.get(key, (None, None))[0]
+        cnt = f' <span class="ct">[{count}]</span>' if (count and show_count) else ""
+        return f'<h2 class="section" id="{anchor}">{html.escape(label)}{cnt}</h2>'
+
     def section(anchor, label, key, show_count=True):
         if key not in by:
             return ""
-        count, entries = by[key]
-        cnt = f' <span class="ct">[{count}]</span>' if (count and show_count) else ""
-        block = [f'<h2 class="section" id="{anchor}">{html.escape(label)}{cnt}</h2>']
-        for e in entries:
-            block.append(entry_html(e))
-        return "".join(block)
+        return heading(anchor, label, key, show_count) + bullets(by[key][1], cv_date)
 
     h = head("C.V. — Matthew C. Nisbet", "C.V.")
     h += '<div class="cols">' + cv_sidebar_html() + '<div class="maincol cvpage">'
@@ -193,10 +235,11 @@ def build_cv():
           '<a href="Nisbet_CV.pdf">PDF version</a> '
           '<a href="publications.html">Publications</a></div>')
     h += '<h2 class="section" id="education">Education</h2>'
-    for e in ["Nisbet, M.C. (2003). Ph.D., Communication, Cornell University.",
-              "Nisbet, M.C. (1999). M.S., Communication, Cornell University.",
-              "Nisbet, M.C. (1994). B.A., Government, Dartmouth College."]:
-        h += entry_html(e)
+    h += bullets([
+        "Nisbet, M.C. (2003). Ph.D., Communication, Cornell University.",
+        "Nisbet, M.C. (1999). M.S., Communication, Cornell University.",
+        "Nisbet, M.C. (1994). B.A., Government, Dartmouth College.",
+    ], cv_date)
     h += section("academic", "Academic appointments", "Academic appointments")
     h += '<h2 class="section" id="editorial">Editorial appointments</h2>'
     for sub in ("Editor-in-chief/associate editor", "Editorial board"):
@@ -204,29 +247,26 @@ def build_cv():
             c, e = by[sub]
             cnt = f' <span class="ct">[{c}]</span>' if c else ""
             h += f'<h3 class="subsection">{html.escape(sub)}{cnt}</h3>'
-            for x in e:
-                h += entry_html(x)
+            h += bullets(e, cv_date)
     h += section("fellowships", "Fellowships", "Visiting positions/fellowships")
-    h += '<h2 class="section" id="expert">Expert advisory committees'
-    if "Expert advisory committees" in by and by["Expert advisory committees"][0]:
-        h += f' <span class="ct">[{by["Expert advisory committees"][0]}]</span>'
-    h += '</h2>'
+    h += heading("expert", "Expert advisory committees", "Expert advisory committees")
     for sub in ("U.S. National Academies of Sciences, Engineering, and Medicine",
                 "U.S. National Science Foundation, National Science Board"):
         if sub in by:
-            c, e = by[sub]
+            _, e = by[sub]
             h += f'<h3 class="subsection">{html.escape(sub)}</h3>'
-            for x in e:
-                h += entry_html(x)
+            h += bullets(e, cv_date)
     h += section("consulting", "Consulting/advisory positions", "Consulting/advisory positions")
     h += section("professional", "Professional positions", "Professional positions")
     h += section("funding", "Funded research projects", "Funded research projects")
     h += section("honors", "Honors and awards", "Honors and awards")
-    h += section("impact", "Impact/recognition", "Impact/recognition", show_count=False)
+    if "Impact/recognition" in by:
+        h += '<h2 class="section" id="impact">Impact/recognition</h2>'
+        h += render_impact(by["Impact/recognition"][1])
     h += '<h2 class="section" id="teaching">Teaching and mentoring</h2>'
-    h += '<div class="entry"><div class="cite">See <a href="courses.html">Courses</a> for current and past teaching.</div></div>'
+    h += '<div class="impact-line">See <a href="courses.html">Courses</a> for current and past teaching.</div>'
     h += '<h2 class="section" id="service">Service and leadership</h2>'
-    h += '<div class="entry"><div class="cite">Departmental, university, and professional service available in the PDF C.V.</div></div>'
+    h += '<div class="impact-line">Departmental, university, and professional service available in the PDF C.V.</div>'
     h += '</div></div>'
     return h + footer()
 
