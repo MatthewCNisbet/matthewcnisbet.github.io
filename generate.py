@@ -64,10 +64,10 @@ def head(title, active):
 """
 
 def footer():
-    return f"""</main>
+    # No navigation in the footer (redundant with the top nav). Copyright only.
+    return """</main>
 <footer><div class="wrap">
   <span class="dot"></span>
-  {nav_html(None, "foot")}
   <span class="copy">&copy; Matthew C. Nisbet</span>
 </div></footer>
 </body></html>"""
@@ -276,7 +276,13 @@ def build_list_page(record_file, page_title, active, heading):
     cnt = f' <span class="ct">[{count}]</span>' if count else ""
     h += f'<h1 class="page">{html.escape(heading)}{cnt}</h1>'
     h += '<div class="listcol">'
+    cur_year = None
     for e in entries:
+        m = re.search(r'\((\d{4})', e)
+        yr = m.group(1) if m else None
+        if yr and yr != cur_year:
+            h += f'<div class="yearhead">{yr}</div>'
+            cur_year = yr
         h += entry_html(e)
     h += '</div>'
     return h + footer()

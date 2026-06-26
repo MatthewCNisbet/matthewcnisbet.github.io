@@ -1,10 +1,12 @@
 /* ============================================================
    Matthew C. Nisbet — personal site
-   Redesign June 2026.
+   Redesign June 2026 (revised).
    - one accent: green #00693E (dot, bar, active-tab underline only)
    - black text on white; links black + underlined, never green
    - Source Serif 4 for titles and citations; system sans for nav/labels
-   - no italics anywhere; circular headshot; no divider lines on CV/pubs
+   - no italics; circular headshot; no divider lines; flush-left citations
+   - dense list spacing; year subheaders on Talks and Media
+   - no footer navigation (redundant with top nav)
    ============================================================ */
 
 :root{
@@ -19,7 +21,7 @@
 
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;background:#fff;color:var(--ink);}
-body{font-family:var(--sans);font-size:13px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+body{font-family:var(--sans);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;}
 
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
 
@@ -44,7 +46,7 @@ nav.main a:hover{text-decoration:underline;}
 .avatar{width:92px;height:92px;border-radius:50%;object-fit:cover;display:block;background:#fff;}
 
 /* ---------- landing hero ---------- */
-.hero{display:flex;gap:20px;align-items:flex-start;padding:30px 0 26px;}
+.hero{display:flex;gap:20px;align-items:flex-start;padding:28px 0 24px;}
 .hero .avatar{flex:0 0 92px;margin-top:2px;}
 .hero .herotext{flex:1;max-width:640px;}
 .hero .title{font-weight:600;font-size:15px;line-height:1.35;}
@@ -53,55 +55,54 @@ nav.main a:hover{text-decoration:underline;}
 .hero p:last-child{margin-bottom:0;}
 
 /* ---------- about / bio ---------- */
-.bio{display:flex;gap:20px;align-items:flex-start;padding:30px 0 20px;}
+.bio{display:flex;gap:20px;align-items:flex-start;padding:28px 0 18px;}
 .bio .avatar{flex:0 0 96px;width:96px;height:96px;margin-top:4px;}
 .bio .biotext{flex:1;max-width:660px;font-size:14px;line-height:1.6;}
 .bio .biotext p{margin:0 0 13px;}
 
 /* ---------- two-column pages (CV, Publications) ---------- */
-.cols{display:flex;gap:30px;align-items:flex-start;padding-top:26px;}
+.cols{display:flex;gap:30px;align-items:flex-start;padding-top:24px;}
 .side{flex:0 0 150px;position:sticky;top:18px;}
 .side .avatar{width:96px;height:96px;margin-bottom:14px;}
-.sidenav{display:flex;flex-direction:column;gap:6px;}
+.sidenav{display:flex;flex-direction:column;gap:5px;}
 .sidenav a{font-size:12px;line-height:1.25;color:var(--muted);text-decoration:none;}
 .sidenav a:hover{color:var(--green);text-decoration:underline;}
 .sidenav .glabel{font-size:11px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;
-  color:var(--muted);margin:12px 0 2px;}
-.sidenav .gap{height:12px;}
+  color:var(--muted);margin:11px 0 2px;}
+.sidenav .gap{height:11px;}
 .maincol{flex:1;min-width:0;}
 
 /* ---------- page titles ---------- */
 .cvtitle{font-family:var(--sans);font-size:16px;font-weight:700;margin:0;letter-spacing:-0.01em;}
-.cvmeta{font-size:13px;color:var(--muted);margin:0 0 16px;}
+.cvmeta{font-size:13px;color:var(--muted);margin:0 0 14px;}
 .cvmeta a{color:var(--muted);text-decoration:underline;margin-right:14px;}
-h1.page{font-family:var(--sans);font-size:20px;font-weight:700;margin:28px 0 16px;letter-spacing:-0.01em;}
+h1.page{font-family:var(--sans);font-size:20px;font-weight:700;margin:26px 0 12px;letter-spacing:-0.01em;}
 
 /* ---------- section headings: sans, no divider lines ---------- */
-h2.section{font-family:var(--sans);font-size:14px;font-weight:700;margin:18px 0 8px;
+h2.section{font-family:var(--sans);font-size:14px;font-weight:700;margin:16px 0 6px;
   scroll-margin-top:70px;}
-h3.subsection{font-family:var(--sans);font-size:12.5px;font-weight:700;color:#222;margin:12px 0 6px;}
+h3.subsection{font-family:var(--sans);font-size:12.5px;font-weight:700;color:#222;margin:10px 0 4px;}
+/* bracketed counts: never bold */
 .ct{font-weight:400;color:var(--muted);}
 
-/* ---------- citation entries ---------- */
-.entry{margin-bottom:10px;}
-.cite{font-family:var(--serif);font-size:13px;line-height:1.5;
-  padding-left:24px;text-indent:-24px;}
-.listcol{padding-top:4px;}
-.listcol .entry{margin-bottom:10px;}
+/* ---------- year subheaders (Talks, Media): serif, body size, bold ---------- */
+.yearhead{font-family:var(--serif);font-size:13px;font-weight:700;margin:14px 0 5px;}
+.yearhead:first-of-type{margin-top:4px;}
 
-/* ---------- footer (parallels top nav) ---------- */
-footer{border-top:0.5px solid var(--rule);margin-top:48px;}
-footer .wrap{display:flex;gap:16px;align-items:center;padding:16px 32px;
-  font-size:11.5px;color:var(--muted);flex-wrap:wrap;}
+/* ---------- citation entries: flush left, dense ---------- */
+.entry{margin-bottom:5px;}
+.cite{font-family:var(--serif);font-size:13px;line-height:1.4;}
+.listcol{padding-top:2px;}
+
+/* ---------- footer: copyright only, no navigation ---------- */
+footer{border-top:0.5px solid var(--rule);margin-top:40px;}
+footer .wrap{display:flex;gap:12px;align-items:center;padding:14px 32px;
+  font-size:11.5px;color:var(--muted);}
 footer .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:0 0 8px;}
-nav.foot{display:flex;gap:16px;flex-wrap:wrap;}
-nav.foot a{color:var(--muted);text-decoration:none;}
-nav.foot a:hover{text-decoration:underline;}
-footer .copy{margin-left:auto;}
 
 /* ---------- responsive ---------- */
 @media (max-width:720px){
-  .cols{flex-direction:column;gap:18px;}
+  .cols{flex-direction:column;gap:16px;}
   .side{position:static;flex:none;display:flex;gap:18px;align-items:flex-start;}
   .side .avatar{margin-bottom:0;}
   .sidenav{flex:1;}
@@ -111,5 +112,4 @@ footer .copy{margin-left:auto;}
   .bio{flex-direction:column;gap:14px;}
   nav.main{gap:12px;font-size:11.5px;}
   .masthead .wrap{flex-wrap:wrap;gap:8px;}
-  footer .copy{margin-left:0;width:100%;}
 }
