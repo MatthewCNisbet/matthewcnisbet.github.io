@@ -140,9 +140,7 @@ def render_impact(entries):
         s = e.strip()
         if s.startswith('**') and s.endswith('**'):
             flush()
-            esc = html.escape(s[2:-2])
-            esc = re.sub(r'\[([^\]]*)\]', r'</strong><span class="ct">[\1]</span><strong>', esc)
-            label = ('<strong>' + esc + '</strong>').replace('<strong></strong>', '')
+            label = html.escape(s[2:-2])
             out.append(f'<div class="impact-label">{label}</div>')
         else:
             group.append(e)

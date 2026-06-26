@@ -107,7 +107,7 @@ footer .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:
 .bullets li::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;background:#000000;}
 
 /* ---------- impact/recognition (no bullets) ---------- */
-.impact-label{font-family:var(--sans);font-weight:700;font-size:13px;line-height:1.45;
+.impact-label{font-family:var(--sans);font-weight:400;font-size:13px;line-height:1.45;
   color:#000000;margin:12px 0 2px;}
 .impact-label:first-child{margin-top:0;}
 .impact-line{font-family:var(--sans);font-size:13px;line-height:1.45;color:#000000;margin:0 0 2px;}
