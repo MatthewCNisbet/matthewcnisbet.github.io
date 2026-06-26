@@ -15,7 +15,7 @@ Record files expected alongside this script:
   nisbet_cv_appointments_record.md
 
 Emits: index.html, about.html, cv.html, publications.html, talks.html,
-media.html, courses.html, plus assets/css/style.css (written by build_css()).
+media.html, courses.html, plus style.css (written by build_css()).
 """
 import re, html, os
 
@@ -34,7 +34,7 @@ NAV = [
     ("Substack",     "https://mattnisbet.substack.com"),
 ]
 
-HEADSHOT = "assets/img/headshot.png"
+HEADSHOT = "headshot.png"
 
 def nav_html(active, cls):
     out = ""
@@ -53,7 +53,7 @@ def head(title, active):
 <link rel="icon" href="{FAVICON}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&display=swap">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="masthead"><div class="wrap">
@@ -190,7 +190,7 @@ def build_cv():
     h += '<div class="cols">' + cv_sidebar_html() + '<div class="maincol cvpage">'
     h += '<div class="cvtitle">Curriculum vitae</div>'
     h += ('<div class="cvmeta">'
-          '<a href="assets/pdf/Nisbet_CV.pdf">PDF version</a> '
+          '<a href="Nisbet_CV.pdf">PDF version</a> '
           '<a href="publications.html">Publications</a></div>')
     h += '<h2 class="section" id="education">Education</h2>'
     for e in ["Nisbet, M.C. (2003). Ph.D., Communication, Cornell University.",
