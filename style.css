@@ -3,7 +3,7 @@
    Redesign June 2026 (revised).
    - one accent: green #00693E (dot, bar, active-tab underline only)
    - black text on white; links black + underlined, never green
-   - Source Serif 4 for titles and citations; system sans for nav/labels
+   - system sans throughout (titles, wordmark, citations, nav, labels)
    - no italics; circular headshot; no divider lines; flush-left citations
    - dense list spacing; year subheaders on Talks and Media
    - no footer navigation (redundant with top nav)
@@ -15,7 +15,6 @@
   --muted:#555555;
   --rule:rgba(0,0,0,0.12);
   --maxw:1000px;
-  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
   --sans:-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
@@ -49,8 +48,8 @@ nav.main a:hover{text-decoration:underline;}
 .hero{display:flex;gap:20px;align-items:flex-start;padding:28px 0 24px;}
 .hero .avatar{flex:0 0 92px;margin-top:2px;}
 .hero .herotext{flex:1;max-width:640px;}
-.hero .title{font-weight:600;font-size:15px;line-height:1.35;}
-.hero .subtitle{font-weight:400;font-size:13px;color:var(--muted);margin-bottom:16px;}
+.hero .title{font-weight:700;font-size:15px;line-height:1.2;margin:0 0 2px;}
+.hero .subtitle{font-weight:400;font-size:13px;line-height:1.2;color:var(--ink);margin:0 0 12px;}
 .hero p{margin:0 0 11px;font-size:13px;line-height:1.6;}
 .hero p:last-child{margin-bottom:0;}
 
@@ -107,7 +106,7 @@ footer .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:
 .bullets li::before{content:"";position:absolute;left:0;top:6px;width:4px;height:4px;background:#000000;}
 
 /* ---------- impact/recognition (no bullets) ---------- */
-.impact-label{font-family:var(--sans);font-weight:400;font-size:13px;line-height:1.45;
+.impact-label{font-family:var(--sans);font-weight:700;font-size:13px;line-height:1.45;
   color:#000000;margin:12px 0 2px;}
 .impact-label:first-child{margin-top:0;}
 .impact-line{font-family:var(--sans);font-size:13px;line-height:1.45;color:#000000;margin:0 0 2px;}
