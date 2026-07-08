@@ -131,3 +131,12 @@ footer .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:
 .pubpage .pubentry{font-size:13px;line-height:1.5;margin:0 0 14px 0;padding-left:0;text-indent:0;}
 .pubpage .yearhead{margin:20px 0 12px;}
 .pubpage .yearhead:first-of-type{margin-top:6px;}
+
+/* ---------- CV date-led rows: fixed date column, no bullet, no hanging indent ---------- */
+.crow{font-size:13px;line-height:1.45;margin-bottom:3px;}
+.crow .cd{display:inline-block;width:84px;vertical-align:top;}
+/* ---------- Teaching / mentoring + Service / leadership ---------- */
+.cinst{font-weight:700;font-size:12px;margin:8px 0 2px;}
+.ctext{font-size:13px;line-height:1.45;margin:0 0 6px;}
+.ment{font-size:13px;line-height:1.45;margin:0 0 8px;}
+.clevel{font-weight:700;font-size:12.5px;margin:9px 0 3px;}
