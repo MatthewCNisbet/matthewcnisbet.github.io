@@ -132,11 +132,20 @@ footer .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:
 .pubpage .yearhead{margin:20px 0 12px;}
 .pubpage .yearhead:first-of-type{margin-top:6px;}
 
-/* ---------- CV date-led rows: fixed date column, no bullet, no hanging indent ---------- */
-.crow{font-size:13px;line-height:1.45;margin-bottom:3px;}
-.crow .cd{display:inline-block;width:84px;vertical-align:top;}
+/* ---------- CV date-led rows: per-section grid (year column auto-sizes per block),
+   small gap, wrapped lines hang under the text ---------- */
+.cgrid{display:grid;grid-template-columns:max-content 1fr;column-gap:8px;row-gap:3px;
+  font-size:13px;line-height:1.45;margin:0 0 6px;}
+.cgrid.bulg{column-gap:6px;}
+.cgrid .cd{white-space:nowrap;}
+.cgrid .cx{min-width:0;}
+.sq{display:inline-block;width:4px;height:4px;background:#000;vertical-align:middle;margin:0 6px 2px 0;}
 /* ---------- Teaching / mentoring + Service / leadership ---------- */
 .cinst{font-weight:700;font-size:12px;margin:8px 0 2px;}
 .ctext{font-size:13px;line-height:1.45;margin:0 0 6px;}
 .ment{font-size:13px;line-height:1.45;margin:0 0 8px;}
 .clevel{font-weight:700;font-size:12.5px;margin:9px 0 3px;}
+
+/* tighter mentoring rosters + compact MA capstone blocks */
+.bullets.tight li{margin-bottom:2px;}
+.capblock{font-size:11px;line-height:1.3;color:#000;margin:0 0 6px;}
