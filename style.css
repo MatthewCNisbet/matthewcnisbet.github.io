@@ -124,3 +124,10 @@ footer .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:
   nav.main{gap:12px;font-size:11.5px;}
   .masthead .wrap{flex-wrap:wrap;gap:8px;}
 }
+
+/* Publications page: block citations (no bullets), blank space between entries,
+   no hanging indent (runover lines flush left), extra spacing around year heads. */
+.pubpage .publist{margin:0;padding:0;}
+.pubpage .pubentry{font-size:13px;line-height:1.5;margin:0 0 14px 0;padding-left:0;text-indent:0;}
+.pubpage .yearhead{margin:20px 0 12px;}
+.pubpage .yearhead:first-of-type{margin-top:6px;}
